@@ -1,0 +1,84 @@
+;general config
+screen=screen.png
+name=JD Purity
+description = Slideshow for JD Purity Template
+
+;data configuration
+getfromcontent=no
+getfromfolder=yes
+;Add javascript and css source
+;js[] = "jd_slideshow.js"
+css[] = "style.css"
+
+;here is option for main effect
+animation[maineffect][title]= Animation effect
+animation[maineffect][description]= Select type of animation effect for slideshow.
+animation[maineffect][type]= select
+animation[maineffect][options][blind]= blind
+animation[maineffect][options][bounce]= bounce
+animation[maineffect][options][clip]= clip
+animation[maineffect][options][drop]= drop
+animation[maineffect][options][explode]= explode
+animation[maineffect][options][fade]= fade
+animation[maineffect][options][fold]= fold
+animation[maineffect][options][puff]= puff
+animation[maineffect][options][shake]= shake
+animation[maineffect][options][scale]= scale
+animation[maineffect][options][slide]= slide
+animation[maineffect][options][pulsate]= pulsate
+animation[maineffect][default_value]= fade
+
+;here is option for animation duration
+animation[duration][title]= Animation duration
+animation[duration][description]= Define the duration (in miliseconds) that animation effect takes to switch one image to another along the slideshow
+animation[duration][type]= textfield
+animation[duration][default_value]= 1000
+
+
+;here is option for interval
+animation[interval][title]= Interval
+animation[interval][description]= Define the duration (in miliseconds) for image to be in static mode. Animation starts when interval time is over.
+animation[interval][type]= textfield
+animation[interval][default_value]= 5000
+
+;here is option for show description
+animation[showdesc][title]= Show description
+animation[showdesc][description]= Show/hide description sticked to each image. Make sure Description details are declared in section <strong>Image options</strong> above.
+animation[showdesc][type]= radios
+animation[showdesc][options][0]= don't display
+animation[showdesc][options][1]= always
+animation[showdesc][options][2]= mouse over
+animation[showdesc][default_value]= 1
+
+
+;here is option for enable/disable pause when mouse over
+animation[mouseover][title]= Pause animation when mouse over
+animation[mouseover][description]= Enable/disable pause on mouse over
+animation[mouseover][type]= radios
+animation[mouseover][options][1]= yes
+animation[mouseover][options][0]= no
+animation[mouseover][default_value]= 0
+
+;here is option for navigation when
+animation[navigation][title]= Number navigation bar
+animation[navigation][description]= Show/hide number navigation bar (which differs from thumbnail navigation bar)
+animation[navigation][type]= radios
+animation[navigation][options][0]= don't display
+animation[navigation][options][1]= always
+animation[navigation][options][2]= mouse over
+animation[navigation][default_value]= 1
+
+;here is option for number of navigation
+animation[navlength][title]= Thumbnail navigation bar
+animation[navlength][description]= Declare the number of thumbnails to be displayed. Minimum is 3. 
+animation[navlength][type]= textfield
+animation[navlength][default_value]= 4
+
+;here is option for enable/disable control
+animation[control][title]= Enable control (Stop/Pause/Play)
+animation[control][description]= This setting applied to the <strong>Number navigation bar</strong> only. Enable/disable <strong>Stop</strong> button.
+animation[control][type]= radios
+animation[control][options][1]= yes
+animation[control][options][0]= no
+animation[control][default_value]= 1
+

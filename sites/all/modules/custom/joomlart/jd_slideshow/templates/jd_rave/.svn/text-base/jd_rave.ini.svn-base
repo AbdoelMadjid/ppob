@@ -1,0 +1,84 @@
+;general config
+screen=screen.png
+name=JD Rave
+description = Slideshow for JD Purity Template
+
+;data configuration
+getfromcontent=no
+getfromfolder=yes
+;Add javascript and css source
+;js[] = "jd_slideshow.js"
+css[] = "style.css"
+
+;here is option for main effect
+animation[maineffect][title]= Animation effect
+animation[maineffect][description]= Set effect of animation.
+animation[maineffect][type]= select
+animation[maineffect][options][blind]= blind
+animation[maineffect][options][bounce]= bounce
+animation[maineffect][options][clip]= clip
+animation[maineffect][options][drop]= drop
+animation[maineffect][options][explode]= explode
+animation[maineffect][options][fade]= fade
+animation[maineffect][options][fold]= fold
+animation[maineffect][options][puff]= puff
+animation[maineffect][options][shake]= shake
+animation[maineffect][options][scale]= scale
+animation[maineffect][options][slide]= slide
+animation[maineffect][options][pulsate]= pulsate
+animation[maineffect][default_value]= fade
+
+;here is option for animation duration
+animation[duration][title]= Animation duration
+animation[duration][description]= Set duration of animation in miliseconds
+animation[duration][type]= textfield
+animation[duration][default_value]= 1000
+
+
+;here is option for interval
+animation[interval][title]= Interval
+animation[interval][description]= Set time for next play/run in miliseconds
+animation[interval][type]= textfield
+animation[interval][default_value]= 5000
+
+;here is option for show description
+animation[showdesc][title]= Show description
+animation[showdesc][description]= Set to show/hide description
+animation[showdesc][type]= radios
+animation[showdesc][options][0]= don't display
+animation[showdesc][options][1]= always
+animation[showdesc][options][2]= mouse over
+animation[showdesc][default_value]= 1
+
+
+;here is option for enable/disable pause when mouse over
+animation[mouseover][title]= Pause animation when mouse over
+animation[mouseover][description]= enable/disable pause when mouse over
+animation[mouseover][type]= radios
+animation[mouseover][options][1]= yes
+animation[mouseover][options][0]= no
+animation[mouseover][default_value]= 0
+
+;here is option for navigation when
+animation[navigation][title]= Show navigation
+;animation[navigation][description]= enable/disable control
+animation[navigation][type]= radios
+animation[navigation][options][0]= don't display
+animation[navigation][options][1]= always
+animation[navigation][options][2]= mouse over
+animation[navigation][default_value]= 1
+
+;here is option for number of navigation
+animation[navlength][title]= Navigation length
+animation[navlength][description]= minimum is 3
+animation[navlength][type]= textfield
+animation[navlength][default_value]= 4
+
+;here is option for enable/disable control
+animation[control][title]= Enable control (Stop/Pause/Play)
+animation[control][description]= enable/disable control
+animation[control][type]= radios
+animation[control][options][1]= yes
+animation[control][options][0]= no
+animation[control][default_value]= 1
+

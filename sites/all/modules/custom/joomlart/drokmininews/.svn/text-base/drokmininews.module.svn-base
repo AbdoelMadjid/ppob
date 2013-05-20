@@ -1,0 +1,195 @@
+<?php
+/**
+ * @package drupal
+ * @subpackage drokmininews
+ * @version 6.x-1.1 May 1, 2010
+ * @author RocketTheme http://www.rockettheme.com
+ * @copyright Copyright (C) 2007 - 2010 RocketTheme, LLC
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
+ */
+/*====================================
+	dRokMiniNews Module
+====================================*/
+
+/*
+* Implementation of hook_block()
+*/
+
+function drokmininews_block($op = 'list', $delta = 0, $edit = array()) {
+	switch ($op) {
+	
+		case 'list':
+			$blocks[0]['info'] = t('dRokMiniNews');
+			$blocks[0]['cache'] = BLOCK_NO_CACHE;
+			return $blocks;
+			break;
+		
+		// configure items on block admin page
+		case 'configure':
+		case 'save':
+			break;
+		case 'view':
+			$block['subject'] = "";
+			$block['content'] = theme('drokmininews');
+			return $block;
+			break;
+	}
+
+}
+
+function drokmininews_theme() {
+  return array(
+    'drokmininews' => array(
+      'template' => 'drokmininews',
+      'arguments' => array('links' => array()),
+    ),
+  );
+}
+
+//*****************************************************
+//  Module Admin
+//*****************************************************
+function drokmininews_admin() {
+	
+	$form = array();
+	
+	$form['drokmininews_article_count'] = array(
+	    '#type' => 'textfield',
+	    '#title' => t('Maximum number of items to retrieve per section'),
+	    '#default_value' => variable_get('drokmininews_article_count', 15),
+	    '#size' => 4,
+	    '#maxlength' => 4,
+	    //'#description' => t(""),
+	    '#required' => TRUE,
+	  );
+	  
+	  $form['drokmininews_preview_length'] = array(
+	    '#type' => 'textfield',
+	    '#title' => t('Preview Text Length'),
+	    '#default_value' => variable_get('drokmininews_preview_length', 75),
+	    '#size' => 6,
+	    '#maxlength' => 6,
+	    //'#description' => t(""),
+	    '#required' => TRUE,
+	  );
+	  
+	$form['drokmininews_sections'] = array(
+	    '#type' => 'textfield',
+	    '#title' => t('Number of Categories to Display'),
+	    '#default_value' => variable_get('drokmininews_sections', 6),
+	    '#size' => 4,
+	    '#maxlength' => 4,
+	    '#description' => t("Maximum of 10"),
+	    '#required' => TRUE,
+	  );
+	  
+	  
+	  $i = 1;
+	  	  
+	  while ($i <= 10) {
+	  		
+	  		$catName = "cat_ " . $i;
+			$cat = "drokmininews_cat_" . $i;
+			$catID = "drokmininews_cat_id_" . $i;
+			$imgDir = "drokmininews_img_dir_" . $i;
+			$catColor = "drokmininews_color_" . $i;
+			$vocab = "drokmininews_vocab_" . $i;		
+			$default_show = "drokmininews_default_show_" . $i;  	
+	  		
+	  		$form[$catName] = array(
+			  '#type' => 'fieldset',
+			  '#title' => t('Category ' . $i),
+			  '#collapsible' => TRUE,
+			  '#collapsed' => TRUE,
+			);
+	  		
+			$form[$catName][$cat] = array(
+			'#type' => 'textfield',
+			'#title' => t('Name'),
+			'#default_value' => variable_get($cat, ''),
+			'#size' => 25,
+			'#required' => FALSE,
+			);
+			
+			$form[$catName][$catID] = array(
+			'#type' => 'textfield',
+			'#title' => t('ID'),
+			'#default_value' => variable_get($catID, ''),
+			'#size' => 25,
+			'#required' => FALSE,
+			);
+			
+			$form[$catName][$imgDir] = array(
+			'#type' => 'textfield',
+			'#title' => t('Image Directory'),
+			'#default_value' => variable_get($imgDir, ''),
+			'#size' => 25,
+			'#required' => FALSE,
+			);
+			
+			$form[$catName][$catColor] = array(
+			'#type' => 'textfield',
+			'#title' => t('Color'),
+			'#default_value' => variable_get($catColor, ''),
+			'#size' => 25,
+			'#required' => FALSE,
+			);
+			
+			$form[$catName][$vocab] = array(
+			'#type' => 'textfield',
+			'#title' => t('Vocabulary'),
+			'#default_value' => variable_get($vocab, ''),
+			'#size' => 25,
+			'#required' => FALSE,
+			);
+			
+			$form[$catName][$default_show] = array(
+			'#type' => 'textfield',
+			'#title' => t('Default Number of Items to Show'),
+			'#default_value' => variable_get($default_show, 0),
+			'#size' => 5,
+			'#required' => FALSE,
+			);
+	  		
+	  		$i++;	
+	   } // end while
+	  
+	  
+	  return system_settings_form($form);
+}
+
+
+//*****************************************************
+//  Setup menu items in Drupal Admin
+//*****************************************************
+function drokmininews_menu() {
+
+	$items = array();
+	
+	
+	$items['admin/rockettheme'] = array(
+		'title' => 'RocketTheme',
+		'description' => 'Manage settings for custom RocketTheme Modules.',
+		'position' => 'right',
+		'weight' => -5,
+		'page callback' => 'system_admin_menu_block_page',
+		'access arguments' => array('administer site configuration'),
+		'file' => 'system.admin.inc',
+		'file path' => drupal_get_path('module', 'system'),
+	
+	);
+	
+	
+	$items['admin/rockettheme/drokmininews'] = array(
+	'title' => 'dRokMiniNews ',
+	'description' => 'Administer settings for the dRokMiniNews Module',
+	'page callback' => 'drupal_get_form',
+	'page arguments' => array('drokmininews_admin'),
+	'access arguments' => array('access administration pages'),
+	'type' => MENU_NORMAL_ITEM,
+	);
+	
+	return $items;
+}
+
+

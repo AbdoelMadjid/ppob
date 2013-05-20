@@ -1,0 +1,77 @@
+<?php
+
+function ppob_param_init() {
+if(function_exists('jquery_ui_add')){
+		jquery_ui_add(array('ui.datepicker'));
+		jquery_ui_add(array('ui.tabs'));
+		jquery_ui_add(array('ui.dialog'));
+}
+if(function_exists('drupal_add_css')){
+	drupal_add_css("sites/all/modules/jquery_ui/jquery.ui/themes/start/jquery-ui.css");
+	drupal_add_css(drupal_get_path('module','ppob_param').'/ppob_param.css');
+}
+if(function_exists('drupal_add_js')){
+    drupal_add_js(drupal_get_path('module', 'ppob_param') .'/ppob_param.js');
+}
+
+}
+
+function format_uang($int,$var){
+	if ($int<0) {
+		$res = '<div align="right"><font color=#FF0000>('.number_format(($int*-1),$var).')</font></div>';
+	}else{
+		$res = '<div align="right">'.number_format($int,$var).'</div>';
+	}
+	return $res;
+}
+
+function formattgl($par){
+  $elemen=split('/',$par );
+  return $elemen[2].'-'.$elemen[1].'-'.$elemen[0];
+}
+
+function konversitgl($par){
+    $elemen=split('-',$par );
+    return $elemen[2].'/'.$elemen[1].'/'.$elemen[0];
+}
+
+function valid_tanggal($tgl_cek){
+  global $user;
+  $panjang = strlen($tgl_cek);
+  //if (!ereg ("([0-9]{1,2})/([0-9]{1,2})/([0-9]{4})", $tgl_cek)){
+  if (!ereg ("([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})", $tgl_cek)){
+      $hasil_cek = false;
+  }else{
+      $tahun = substr($tgl_cek,-4);
+      $tgl = substr($tgl_cek,0,2);
+      $bulan   = substr($tgl_cek,3,2);
+      if($bulan>12){
+         $hasil_cek = false;
+      }else if($tgl>31){
+           $hasil_cek = false;
+      }else{
+        if($bulan==02){
+           if($tgl>29){
+            $hasil_cek = false;
+           }else{
+            $hasil_cek = true;
+           }
+        }else{
+           $hasil_cek = true;
+        }
+      }
+  }
+  return $hasil_cek;
+}
+
+function milih_loket($tes=null){
+    db_set_active('data');
+    $sql = db_query("SELECT userid FROM tbl_user");
+    db_set_active('default');
+    $pilih_loket = array();
+    $pilih_loket[0] = ('-- Pilih --');
+    while ($rows=db_fetch_object($sql)){
+        $pilih_loket[$rows->userid] = t($rows->userid);
+    }
+    return $pilih_loket;
+}

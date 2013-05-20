@@ -1,0 +1,150 @@
+/*
+# ------------------------------------------------------------------------
+# JD slideshow module
+# ------------------------------------------------------------------------
+# Copyright (C) 2004-2010 JoomlArt.com. All Rights Reserved.
+# @license - PHP files are GNU/GPL V2. CSS / JS are Copyrighted Commercial,
+# bound by Proprietary License of JoomlArt. For details on licensing, 
+# Please Read Terms of Use at http://www.joomlart.com/terms_of_use.html.
+# Author: JoomlArt.com
+# Websites:  http://www.joomlart.com -  http://www.joomlancers.com
+# Redistribution, Modification or Re-licensing of this file in part of full, 
+# is bound by the License applied. 
+# ------------------------------------------------------------------------
+*/
+/* Slideshow Item ---*/
+.block-jd_slideshow {
+	margin-bottom: 0px !important;
+}
+.ss-item {
+	background-color: #f6f7f8;
+	padding: 3px 0px;
+}
+
+/* Slideshow Item Description ---*/
+
+.ss-desc-wrap {
+	display: block;
+	overflow: hidden;
+	height: auto;
+	right: 0 !important;
+	box-shadow: -1px 0 3px #fff;
+	-moz-box-shadow: -1px 0 3px #fff;
+	-webkit-box-shadow: -1px 0 3px #fff;
+	background: #000114;
+	width: 100%;
+	filter:alpha(opacity=70);
+	opacity: 0.7;
+	-moz-opacity: 0.7;
+	bottom: 1px;
+}
+
+.ss-desc {
+	padding: 20px 0px;
+	text-align: left;
+	font-family: Georgia,"Times New Roman",Times,serif;
+	font-size: 200%;
+	text-shadow: 0px 1px 0px #111;
+	color: #fff;
+	margin-left: 10px;
+	width: 76%;
+	overflow: hidden;
+}
+
+.ss-desc h3 {
+	font-size: 225%;
+	font-weight: bold;
+	margin: 0;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+.ss-desc p {
+	margin: 10px 0 0;
+	font-size: 100%;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+ul.nav-list li {
+	width: 30px;
+	height: 30px;
+	margin-right: 5px;
+}
+
+.nav-item {
+	display: none !important;
+}
+
+.ja-mass {
+	overflow: hidden;
+}
+/* Slideshow Navigation ---*/
+.jd-slideshow-nav {
+	bottom: 45px;
+	right: 0;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	position: relative;
+	right: 10px;
+}
+
+.jd-slideshow-nav ul {
+	padding: 0px;
+	float: right;
+	background: none !important;
+}
+
+.jd-slideshow-nav li {
+	background-position: 0px !important;
+	padding: 0px !important;
+}
+
+.jd-slideshow-nav li a {
+	padding: 3px 6px;
+	color: #cdcdcd;
+	text-decoration: none;
+	font-size: 92%;
+	text-transform: uppercase;
+	font-family: Helvetica, Arial, sans-serif;
+	outline: none;
+	text-indent: -2000px;
+	display: block;
+	background: none;
+}
+
+.jd-slideshow-nav li a:hover,.jd-slideshow-nav li a:active,.jd-slideshow-nav li a:focus {
+	background: none;
+	display: block;
+	text-indent: -2000px;
+}
+
+.jd-slideshow-nav li.nav-current a {
+	color: #fff;
+	background: #08c;
+}
+
+.jd-slideshow-nav li.nav-before span,.jd-slideshow-nav li.nav-after span {
+	color: #666;
+	padding: 0 6px;
+}
+
+/* Control */
+.jd-slideshow-nav ul.nav-control {}
+
+.jd-slideshow-nav ul.nav-control li a {
+	padding-left: 0;
+	padding-right: 0;
+	width: 50px;
+	text-align: center;
+}
+
+.nav-prev {
+	background: url(img/icon-prev.png) no-repeat center center ;
+}
+
+.nav-next {
+	background: url(img/icon-next.png) no-repeat center center ;
+}
+
+.nav-next {
+}

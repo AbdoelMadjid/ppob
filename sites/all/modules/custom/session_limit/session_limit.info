@@ -1,0 +1,12 @@
+; $Id: session_limit.info,v 1.2.2.1 2010/02/10 16:46:14 deekayen Exp $
+name = Session Limit
+description = "Limit simultaneous user sessions."
+core = 6.x
+dependencies[] = trigger
+
+; Information added by drupal.org packaging script on 2010-02-10
+version = "6.x-2.1"
+core = "6.x"
+project = "session_limit"
+datestamp = "1265820614"
+

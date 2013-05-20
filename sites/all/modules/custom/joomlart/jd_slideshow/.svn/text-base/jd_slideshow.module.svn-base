@@ -1,0 +1,126 @@
+<?php
+/*
+$JA#COPYRIGHT$
+*/
+if (! defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
+require_once ('includes/jdslideshow.inc');
+require_once ('includes/jdimage.inc');
+require_once ('includes/jddata.inc');
+require_once ('includes/themes.inc');
+$path = drupal_get_path('module', 'jd_slideshow');
+$template_path = $path . '/templates';
+//drupal_add_js($path . '/jquery-ui-1.8.custom.min.js');
+drupal_add_css($path . '/jd_slideshow.css');
+/**
+ * Implementation of hook_perm().
+ */
+function jd_slideshow_perm ()
+{
+    return array('access jd_slideshow', 
+    'administer jd_slideshow');
+}
+function jd_slideshow_menu ()
+{
+    $items = array();
+    $items['admin/settings/slideshow'] = array(
+    'title' => t('JD Slideshow'), 
+    'description' => t('Allows to display a folder of images with various graceful animation effects. Auto-resize and text-embed descriptions supports.'), 
+    'file' => 'includes/handler.inc', 
+    'page callback' => 'drupal_get_form', 
+    'page arguments' => array('jd_slideshow_list'), 
+    'type' => MENU_NORMAL_ITEM, 
+    'access arguments' => array('administer site configuration'));
+    $items['admin/settings/slideshow/node'] = array(
+    'file' => 'includes/handler.inc', 
+    'page callback' => 'jd_slideshow_nodetype', 
+    'type' => MENU_CALLBACK, 
+    'access arguments' => array('administer site configuration'));
+    $items['admin/settings/slideshow/list'] = array(
+    'title' => 'List', 'type' => MENU_DEFAULT_LOCAL_TASK, 
+    'weight' => - 10);
+    $items['admin/settings/slideshow/add'] = array(
+    'title' => t('Add slideshow'), 
+    'description' => t('Add new slideshow'), 
+    'file' => 'includes/handler.inc', 
+    'page callback' => 'drupal_get_form', 
+    'page arguments' => array('jd_slideshow_form_add'), 
+    'type' => MENU_LOCAL_TASK, 
+    'parent' => 'admin/settings/slideshow', 
+    'access arguments' => array('administer site configuration'));
+    $items['admin/settings/slideshow/config'] = array(
+    'title' => t('Configuration slideshow'), 
+    'description' => t('Configuration for each slideshow'), 
+    'file' => 'includes/handler.inc', 
+    'page callback' => 'drupal_get_form', 
+    'page arguments' => array('jd_slideshow_config'), 
+    'type' => MENU_CALLBACK, 
+    'access arguments' => array('administer site configuration'));
+    $items['admin/settings/slideshow/delete'] = array(
+    'title' => t('Configuration slideshow'), 
+    'description' => t('Configuration for each slideshow'), 
+    'file' => 'includes/handler.inc', 
+    'page callback' => 'jd_slideshow_delete', 
+    'type' => MENU_CALLBACK, 
+    'access arguments' => array('administer site configuration'));
+    return $items;
+}
+/**
+ * Implementation of hook_block().
+ *
+ */
+function jd_slideshow_block ($op = 'list', $delta = 0)
+{
+    $jds_blocks = variable_get('jd_slideshow_block', NULL);
+    $jds_blocks = unserialize($jds_blocks);
+    $jds_blocks = count($jds_blocks) ? $jds_blocks : array();
+    $blocks = array();
+    $slides = JDSDataHelper::getSlides();
+    switch ($op) {
+        case 'list':
+            foreach ($slides as $block_id => $block_info) {
+                $blocks[$block_id]['info'] = t(
+                $block_info['name']);
+                $blocks[$block_id]['cache'] = BLOCK_NO_CACHE;
+            }
+            return $blocks;
+        case 'view':
+            $data = JD_Slideshow::getData(
+            $slides[$delta]);
+            $data['block_id'] = $delta;
+            $blocks['subject'] = t(
+            $slides[$delta]['name']);
+            $blocks['content'] = theme(
+            'jd_slideshow_view', 
+            $data);
+            return $blocks;
+    }
+    return $blocks;
+}
+/**
+ * Implementation of hook_theme().
+ * 
+ * todo: have template file, search in active theme, if have not themes using default theme
+ *
+ */
+function jd_slideshow_theme ()
+{
+    global $theme;
+    $theme_path = drupal_get_path('theme', $theme);
+    $module_path = drupal_get_path('module', 'jd_slideshow');
+    if (! file_exists(
+    $path . DIRECTORY_SEPARATOR . 'jd_slideshow' . DS . 'jd-slideshow.tpl.php')) {
+        $path = drupal_get_path('module', 
+        'jd_slideshow') . DS . 'template';
+    }
+    return array(
+    'jd_slideshow' => array(
+    'arguments' => array('element' => NULL)), 
+    'jd_slideshow_list' => array(
+    'arguments' => array('form' => array())), 
+    'jd_slideshow_view' => array('path' => $module_path, 
+    'arguments' => array('data' => array()), 
+    'template' => 'jd-slideshow-view'));
+}
+?>

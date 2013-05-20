@@ -1,0 +1,6 @@
+name = PPOB Param
+description = Fungsi-fungsi Yang Digunakan
+core = 6.x
+package = "PPOB - Param"
+version = 6.13x
+project = "PPOB"

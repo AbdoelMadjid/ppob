@@ -1,0 +1,4 @@
+; $Id$
+name = dRokMiniNews
+description = Mini News Rotator.
+core = 6.x

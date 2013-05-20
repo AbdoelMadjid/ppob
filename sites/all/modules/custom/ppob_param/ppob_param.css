@@ -1,0 +1,247 @@
+/* $Id: style-rtl.css,v 1.5 2007/12/17 15:05:09 goba Exp $ */
+
+.form-item label {
+  font-weight: normal;
+}
+
+/**
+ * dblog.module
+ */
+tr.dblog-user {
+  background-color: #fcf9e5;
+}
+
+tr.dblog-user td.active {
+  background-color: #fbf5cf;
+}
+
+tr.dblog-content {
+  background-color: #fefefe;
+}
+
+tr.dblog-content td.active {
+  background-color: #f5f5f5;
+}
+
+tr.dblog-warning {
+  /*background-color: #fdf5e6;*/
+}
+
+tr.dblog-warning td.active {
+ /* background-color: #fdf2de;*/
+}
+
+tr.dblog-error {
+  /*background-color: #fbe4e4;*/
+  color : #CC3333;
+}
+
+tr.dblog-closed {
+  /*background-color: #fbe4e4;*/
+  color : #0000FF;
+}
+
+tr.dblog-expired {
+  background-color: #FFFF83;
+  color : #6600CC;
+}
+/*
+tr.dblog-expired odd{
+  background-color: #FFFF83;
+  color : #6600CC;
+}
+*/
+tbody {
+  font-size: 10px;
+  font-family: Verdana, Arial, sans-serif;
+}
+
+.form-select, .form-text, textarea, form-submit{
+  font-size: 10px;
+  font-family: Verdana, Arial, sans-serif;
+}
+thead th{ background: #FFFFFF none repeat scroll 0 0; }
+
+.backpack-form {
+	max-width: 100em;
+	position: relative;
+	height: 2.5em;
+}
+
+.backpack-form .form-item {
+  height: 1.9em;
+  line-height: 2em;
+  padding-left: 0em; /* LTR */
+  margin: 0.5em 0;
+}
+.backpack-form label {
+  float: left; /* LTR */
+  clear: left; /* LTR */
+  width: 13em;
+}
+.backpack-form .form-text, .backpack-form .form-select {
+  float: left; /* LTR */
+	background-color: #D9FFDD;
+	border: 1px;
+	border-style: solid;
+	border-color: #A5AFB9;
+}
+
+.backpack-form .form-text {
+  text-align: left;
+  margin-right: 5px; /* LTR */
+ /* cursor: pointer;*/
+}
+
+.backpack-form div, .backpack-form label {
+	display: inline;
+
+}
+
+/* ------------------------------- */
+
+.ppob-form {
+	max-width: 100em;
+	position: relative;
+	height: 2.5em;
+}
+
+.ppob-form .form-item {
+  height: 1.9em;
+/*  line-height: 2em; *
+  padding-left: 0em; /* LTR */
+  margin: 0.5em 0;
+}
+.ppob-form label {
+  float: left; /* LTR */
+  clear: left; /* LTR */
+  width: 13em;
+}
+.ppob-form .form-text, .ppob-form .form-select {
+  float: left; /* LTR */
+}
+
+.ppob-form .form-text {
+  text-align: left;
+  margin-right: 5px; /* LTR */
+ /* cursor: pointer;*/
+}
+
+.ppob-form div, .ppob-form label {
+	display: inline;
+
+}
+
+ul li, ul.menu li, .item-list ul li, li.leaf {
+font-family:Verdana,Arial,Helvetica,sans-serif;
+font-size:10.5px;
+list-style-image:none;
+list-style-type:none;
+}
+
+.ui-tabs .ui-tabs-nav li {
+   list-style: none;
+   float: left; }
+.ui-tabs .ui-tabs-nav li a {
+   display: block;
+   padding: 3px 8px;
+   text-decoration: none; }
+.ui-tabs .ui-tabs-nav li ul {
+   display: none; 
+   }
+.ui-tabs .ui-tabs-nav li:hover ul, .ui-tabs .ui-tabs-nav li.hover ul {
+   display: block;
+   top:18px;
+   position: absolute;
+   margin: 0;
+   padding: 0; 
+   background:#91C05F;
+   border-bottom: 1px solid #77d5f7;
+   border-top: 1px solid #77d5f7;
+   border-left: 1px solid #77d5f7;
+   border-right: 1px solid #77d5f7;
+   width: 150px;
+}
+.ui-tabs .ui-tabs-nav li:hover li, .ui-tabs .ui-tabs-nav li.hover li {
+   float: none; 
+}
+.ui-tabs .ui-tabs-nav li:hover li a, .ui-tabs .ui-tabs-nav li.hover li a {
+   background:#91C05F;
+}
+.ui-tabs .ui-tabs-nav li li a:hover {
+   background: #91C05F;
+}
+
+.ui-tabs-panel {
+   font-size:10px;
+}
+
+.sidebarme {
+font-size:10px;
+font-family:"Trebuchet MS",Arial,sans-serif;
+}
+
+.tabless{
+	border-collapse:inherit ;
+}
+
+#center {
+  min-height:300px;
+}
+
+.search-frame {
+border:1px solid #DDDDDD;
+float:left;
+height:150px;
+overflow:auto;
+position:relative;
+width:300px;
+margin:1em;
+margin-right:3em;
+}
+
+.label-frame {
+float:left;
+height:100%;
+
+}
+
+img, a img {
+margin-top:-0.5em;
+}
+
+fieldset {
+-moz-border-radius:6px;
+}
+
+.pyan-inline{
+	max-width: 100em;
+	position: relative;
+    height: 2.5em;
+}
+
+.pyan-inline .inline-item {
+  height: 2em;
+  line-height: 2em;
+  padding-left: 0em; /* LTR */
+/*  padding-top: 0.1em; */
+  margin: 0.5em 0;
+}
+.pyan-inline label {
+  float: left; /* LTR */
+  clear: left; /* LTR */
+  width: 13em;
+}
+.pyan-inline .inline-text, .pyan-inline .inline-select {
+  float: left; /* LTR */
+}
+
+.pyan-inline .inline-text {
+  text-align: left;
+  margin-right: 5px; /* LTR */
+  cursor: pointer;
+}
+
+.pyan-inline div, .cie-inline label {
+	display: inline;
+}

@@ -1,0 +1,6 @@
+name = Monitoring Fusindo
+description = Monitoring Data Transaksi Fusindo
+core = 6.x
+package = "PPOB - Monitoring"
+version = 6.x-1.1
+project = "PPOB"

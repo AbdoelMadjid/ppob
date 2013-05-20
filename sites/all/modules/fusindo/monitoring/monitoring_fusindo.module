@@ -1,0 +1,251 @@
+<?php
+
+function monitoring_fusindo_perm(){
+    global $user;
+	return array('Monitoring Fusindo');
+}
+
+function monitoring_fusindo_menu(){
+    $items['monitoring_fusindo'] = array(
+        'title' => 'Monitoring Fusindo',
+        'type' => MENU_NORMAL_ITEM,
+        'page callback' => 'page_monitoring_ctc',
+        'access arguments' => array('Monitoring Fusindo'),
+    );
+ 
+    $items['monitoring_fusindo/ctc'] = array(
+        'title' => 'Cash To Cash',
+        'type' => MENU_LOCAL_TASK,
+        'page callback' => 'page_monitoring_ctc',
+        'access arguments' => array('Monitoring Fusindo'),
+    );
+    
+    $items['monitoring_fusindo/cta'] = array(
+        'title' => 'Cash To Account',
+        'type' => MENU_LOCAL_TASK,
+        'page callback' => 'page_monitoring_cta',
+        'access arguments' => array('Monitoring Fusindo'),
+    );
+    
+    return $items;
+}
+
+function page_monitoring_ctc($awal=NULL,$akhir=NULL,$loket=NULL,$jenis=NULL,$status=NULL){
+    $jenis = 'c2c';
+    $xx = date('Y-m-d');
+	$yy = substr($xx,0,4);
+	$mm = substr($xx,5,2);
+	$dd = substr($xx,8,2);	 
+    if($awal==NULL){
+        $awal  = $yy."-".$mm."-01";
+    }
+    if($akhir==NULL){
+        $akhir  = $yy."-".$mm."-".$dd;
+    }  
+    $output .= drupal_get_form("pilihtanggal",$awal,$akhir,$loket,$jenis,$status);
+    $output .= daftar_trx_ctc($awal,$akhir,$loket,$jenis,$status);
+    return $output;
+}
+
+function daftar_trx_ctc($awal,$akhir,$loket,$jenis,$status){
+    switch($status){
+        case 'SUKSES' :
+        $q_status = "AND status=";
+        break;
+        case 'GAGAL'  :
+        $q_status = "AND status<>";
+        break;
+    }
+    $digit_loket = substr($loket,-3);
+    $header = array(
+		array('data' => 'No', $i),
+		array('data' => '<div align=center>No Trx', 'field'=> 'trx_number', 'sort' => 'desc' ),
+        array('data' => '<div align=center>Tanggal Trx', 'field'=> 'trx_datetime'),
+		array('data' => '<div align=center>Pengirim'),
+		array('data' => '<div align=center>Alamat Pengirim'),
+		array('data' => '<div align=center>Penerima'),
+		array('data' => '<div align=center>Alamat Penerima'),
+        array('data' => '<div align=center>Jumlah')
+	);
+    $i = 1;
+    db_set_active('data');
+    $s_data = "SELECT * FROM tbl_fusindo_trx WHERE trx_datetime BETWEEN '$awal' AND '$akhir' AND trx_type='$jenis' ".$q_status."'SUKSES' AND userid like '$digit_loket'";
+    $q_data = db_query($s_data);
+    while($baris = db_fetch_object($q_data)){
+        $rows[] = array(
+            $i,
+            $baris->trx_number,
+            $baris->trx_datetime,
+            $baris->sender_name,
+            $baris->sender_address,
+            $baris->receiver_name,
+            $baris->receiver_address,
+            format_uang($baris->amount,2),
+        );
+        $total += $baris->amount;
+        $i = $i+1;
+    }
+    db_set_active('default');
+    $rows[] = array(array('colspan' => '8'));
+    $rows[] = array(array('data'=>'<b>Total</b>','colspan'=>'7'),'<b>'.format_uang($total,2).'</b>');
+    
+    $output .= theme('table', $header, $rows);
+    $output .= theme('pager', NULL, 20, 0);  
+    return $output;
+}
+
+function page_monitoring_cta($awal=NULL,$akhir=NULL,$loket=NULL,$jenis=NULL,$status=NULL){
+    $jenis = 'c2a';
+    $xx = date('Y-m-d');
+	$yy = substr($xx,0,4);
+	$mm = substr($xx,5,2);
+	$dd = substr($xx,8,2);	 
+    if($awal==NULL){
+        $awal  = $yy."-".$mm."-01";
+    }
+    if($akhir==NULL){
+        $akhir  = $yy."-".$mm."-".$dd;
+    }  
+    $output .= drupal_get_form("pilihtanggal",$awal,$akhir,$loket,$jenis,$status);
+    $output .= daftar_trx_cta($awal,$akhir,$loket,$jenis,$status);
+    return $output;
+}
+
+function daftar_trx_cta($awal,$akhir,$loket,$jenis,$status){
+    switch($status){
+        case 'SUKSES' :
+        $q_status = "AND status=";
+        break;
+        case 'GAGAL'  :
+        $q_status = "AND status<>";
+        break;
+    }
+    $digit_loket = substr($loket,-3);
+    $header = array(
+		array('data' => 'No', $i),
+		array('data' => '<div align=center>No Trx', 'field'=> 'trx_number', 'sort' => 'desc' ),
+        array('data' => '<div align=center>Tanggal Trx', 'field'=> 'trx_datetime'),
+		array('data' => '<div align=center>Pengirim'),
+		array('data' => '<div align=center>Alamat Pengirim'),
+		array('data' => '<div align=center>Penerima'),
+		array('data' => '<div align=center>Alamat Penerima'),
+        array('data' => '<div align=center>Jumlah')
+	);
+    $i = 1;
+    db_set_active('data');
+    $s_data = "SELECT * from tbl_fusindo_trx WHERE trx_datetime BETWEEN '$awal' AND '$akhir' AND trx_type='$jenis' ".$q_status."'SUKSES' AND userid like '$digit_loket'";
+    $q_data = db_query($s_data);
+    while($baris = db_fetch_object($q_data)){
+        $rows[] = array(
+            $i,
+            $baris->trx_number,
+            $baris->trx_datetime,
+            $baris->sender_name,
+            $baris->sender_address,
+            $baris->receiver_name,
+            $baris->receiver_address,
+            format_uang($baris->amount,2),
+        );
+        $total += $baris->amount;
+        $i = $i+1;
+    }
+    db_set_active('default');
+    $rows[] = array(array('colspan' => '8'));
+    $rows[] = array(array('data'=>'<b>Total</b>','colspan'=>'7'),'<b>'.format_uang($total,2).'</b>');
+    
+    $output .= theme('table', $header, $rows);
+    $output .= theme('pager', NULL, 20, 0);  
+    return $output;
+}
+
+function pilihtanggal($form_state,$awal,$akhir,$loket,$jenis,$status){
+    $form['pilihtgl'] = array(
+        '#type' => 'fieldset',  
+    );
+    $form['pilihtgl']['awal'] = array( 
+        '#type' => 'textfield',
+        '#size' => 15,
+        '#maxlength' => 10,
+        '#title' => 'Dari',
+        '#attributes' => array('class' => 'jscalendar'),
+        '#default_value' => konversitgl($awal),
+        '#prefix' => '<div class = "container-inline">', '#suffix' => '',
+    );
+    $form['pilihtgl']['akhir'] = array( 
+        '#type' => 'textfield',
+        '#size' => 15,
+        '#maxlength' => 10,
+        '#title' => 'Hingga',
+        '#attributes' => array('class' => 'jscalendar'),
+        '#default_value' => konversitgl($akhir),
+    );
+    $form['pilihtgl']['loket'] = array(
+        '#type' => 'select',
+        '#title' => 'Loket',
+        '#options' => milih_loket(),
+        '#default_value' => $loket,
+        '#prefix' => '', '#suffix' => '',
+    );
+    $form['pilihtgl']['status'] = array(
+        '#type' => 'select',
+        '#title' => 'Status',
+        '#options' => array('' => 'Pilih',
+                    'SUKSES' => 'SUKSES',
+                    'GAGAL' => 'GAGAL'),
+        '#default_value' => $status,
+        '#prefix' => '', '#suffix' => '',
+    );
+    $form['pilihtgl']['submit'] = array(
+        '#type' => 'submit', 
+        '#value' => 'Filter',  
+        '#prefix' => '', '#suffix' => '</div>',
+    );
+    $form['pilihtgl']['jenis'] = array(
+        '#type' => 'value', 
+        '#value' => $jenis,
+    );
+    return $form;
+}
+
+function pilihtanggal_validate($form, &$form_state){
+    $dari   = formattgl($form_state['values']['awal']);
+	$sampai = formattgl($form_state['values']['akhir']);
+    
+    if(!valid_tanggal($dari)){
+        form_set_error('awal', 'Tanggal tidak boleh kosong / format penulisan salah.');
+    }  
+  
+    if(!valid_tanggal($sampai)){
+        form_set_error('akhir', 'Tanggal tidak boleh kosong / format penulisan salah.');
+    }  
+}
+
+function pilihtanggal_submit($form, &$form_state){
+    $dari	 = formattgl($form_state['values']['awal']);
+	$sampai	 = formattgl($form_state['values']['akhir']);
+	$jenis   = $form_state['values']['jenis'];
+    $status   = $form_state['values']['status'];
+	
+	$loket	 = $form_state['values']['loket'];
+
+	if ($sampai<$dari){
+        drupal_set_message($message='Setting tanggal invalid',$type='error');
+    }else{
+        $yy1 = substr($dari,6,4);
+        $mm1 = substr($dari,0,2);
+        $dd1 = substr($dari,3,2);
+        $awal = $dari;
+	
+        $yy2 = substr($sampai,6,4);
+        $mm2 = substr($sampai,0,2);
+        $dd2 = substr($sampai,3,2);
+        $akhir = $sampai; 
+        if($jenis=='c2a'){ 
+            drupal_goto('monitoring_fusindo/cta/'.$awal.'/'.$akhir.'/'.$loket.'/'.$jenis.'/'.$status);
+        }
+        if($jenis=='c2c'){
+            drupal_goto('monitoring_fusindo/ctc/'.$awal.'/'.$akhir.'/'.$loket.'/'.$jenis.'/'.$status);
+        }
+    }
+  return;
+}

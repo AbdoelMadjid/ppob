@@ -1,0 +1,11 @@
+; $Id: jd_slideshow.info,v 1.0 2010/02/24 11:00:00$
+name = "JD Slideshow"
+description = "Allows to display a folder of images with various graceful animation effects. Auto-resize and text-embed descriptions supports."
+package = "JoomlArt Modules"
+core = 6.x
+; Information added by drupal.org packaging script on 2009-04-21
+version = "6.x-1.0"
+core = "6.x"
+project = "jd_slideshow"
+datestamp = "1266985571"
+

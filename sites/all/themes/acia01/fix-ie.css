@@ -1,0 +1,36 @@
+/* $Id: fix-ie.css,v 1.2 2008/04/24 12:58:59 pixture Exp $ */
+
+/**
+ * Themetastic, for Drupal 5.0
+ * Stefan Nagtegaal, iStyledThis [dot] nl
+ * Steven Wittens, acko [dot] net
+ *
+ */
+
+
+fieldset {
+  /* Don't draw backgrounds on fieldsets in IE, as they look really bad. */
+  background: none;
+}
+
+
+/* Prevent fieldsets from shifting when changing collapsed state. */
+html.js fieldset.collapsible {
+  position: relative;
+  top: -1em;
+}
+html.js fieldset.collapsed {
+  top: 0;
+  margin-bottom: 1em;
+}
+
+td.menu-disabled {
+  /* Use filter to emulate CSS3 opacity */
+  filter: alpha(opacity=50);
+}
+
+
+#attach-hide label, #uploadprogress div.message {
+  /* Fading elements in IE causes the text to bleed unless they have a background. */
+  background-color: #ffffff;
+}
